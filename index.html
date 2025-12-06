@@ -112,6 +112,40 @@
             list-style: none;
         }
 
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--dark-brown);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--cream);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.3s;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
         nav a {
             color: var(--dark-brown);
             text-decoration: none;
@@ -559,6 +593,7 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
 
         .submit-button::before {
@@ -576,8 +611,8 @@
         }
 
         .submit-button:hover::before {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
         }
 
         .submit-button:hover {
@@ -670,12 +705,13 @@
     <nav>
         <div class="nav-container">
             <div class="logo">YN</div>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul id="nav-menu">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                <li><a href="#works" onclick="closeMenu()">Works</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
             </ul>
             <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
         </div>
@@ -909,6 +945,17 @@
         // テーマ切り替え（簡易版）
         function toggleTheme() {
             alert('ダークモード機能は開発中です！');
+        }
+
+        // ハンバーガーメニュー
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.remove('active');
         }
 
         // フォーム送信
