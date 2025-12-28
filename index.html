@@ -1,46 +1,221 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keisuke Deguchi - Web Design Portfolio</title>
+    <title>Keisuke Deguchi - Creative Developer & Designer</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
     <style>
+        /* Design System & Variables */
+        :root {
+            /* Colors - Nature Inspired Premium */
+            --color-primary: #2C4A3B;
+            /* Deep Forest Green */
+            --color-secondary: #8B9D83;
+            /* Muted Sage */
+            --color-accent: #D4AF37;
+            /* Antique Bronze */
+
+            --color-bg: #F9F7F2;
+            /* Soft Cream */
+            --color-surface: #FFFFFF;
+            --color-surface-dim: #E8E6E1;
+
+            --color-text: #333333;
+            /* Charcoal */
+            --color-text-muted: #666666;
+            --color-text-light: #F9F7F2;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-s: 1rem;
+            --space-m: 2rem;
+            --space-l: 4rem;
+            --space-xl: 8rem;
+
+            /* Typography */
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Effects */
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --glass: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --color-primary: #8B9D83;
+            --color-secondary: #2C4A3B;
+            --color-accent: #E5CD7B;
+
+            --color-bg: #1A1A1A;
+            --color-surface: #2D2D2D;
+            --color-surface-dim: #222222;
+
+            --color-text: #E0E0E0;
+            --color-text-muted: #AAAAAA;
+
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --glass: rgba(30, 30, 30, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --terracotta: #C97D60;
-            --sage: #8B9D83;
-            --cream: #F4F1E8;
-            --warm-gray: #6B5D5D;
-            --dark-brown: #3E3330;
-            --sand: #D4C5B9;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-            color: var(--dark-brown);
-            background-color: var(--cream);
-            line-height: 1.6;
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            line-height: 1.7;
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        /* ローディング画面 */
-        .loader {
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
             position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            transition: transform 0.1s;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--color-accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s, width 0.3s, height 0.3s;
+        }
+
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+
+        /* Layout & Utilities */
+        section {
+            padding: var(--space-xl) var(--space-m);
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--color-primary);
+        }
+
+        [data-theme="dark"] h1,
+        [data-theme="dark"] h2,
+        [data-theme="dark"] h3 {
+            color: var(--color-text);
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--space-l);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        h2.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        p {
+            margin-bottom: var(--space-s);
+            color: var(--color-text-muted);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            background-color: var(--color-secondary);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--cream);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background-color: var(--color-bg);
+            z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s, visibility 0.5s;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
         }
 
         .loader.hidden {
@@ -48,129 +223,97 @@
             visibility: hidden;
         }
 
-        .loader-content {
-            text-align: center;
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--color-surface-dim);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        .loader-icon {
-            font-size: 4rem;
-            animation: float 2s ease-in-out infinite;
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* プログレスバー */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--terracotta), var(--sage));
-            z-index: 9998;
-            transition: width 0.1s;
-        }
-
-        /* ナビゲーション */
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(244, 241, 232, 0.95);
-            padding: 1.5rem 2rem;
+            padding: 1.5rem 5%;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            backdrop-filter: blur(10px);
-            transform: translateY(0);
-            transition: transform 0.3s;
+            transition: var(--transition-smooth);
+            background: rgba(249, 247, 242, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        nav.hidden {
-            transform: translateY(-100%);
+        [data-theme="dark"] nav {
+            background: rgba(26, 26, 26, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            background: rgba(249, 247, 242, 0.95);
+            box-shadow: var(--shadow-soft);
+        }
+
+        [data-theme="dark"] nav.scrolled {
+            background: rgba(26, 26, 26, 0.95);
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--dark-brown);
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
-        nav ul {
+        [data-theme="dark"] .logo {
+            color: var(--color-text);
+        }
+
+        .nav-links {
             display: flex;
             gap: 3rem;
             list-style: none;
         }
 
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--dark-brown);
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--cream);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                transition: right 0.3s;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            }
-
-            nav ul.active {
-                right: 0;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-        }
-
-        nav a {
-            color: var(--dark-brown);
+        .nav-links a {
             text-decoration: none;
+            color: var(--color-text);
             font-weight: 500;
-            transition: color 0.3s;
             position: relative;
+            padding: 0.5rem 0;
         }
 
-        nav a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--terracotta);
-            transition: width 0.3s;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease;
         }
 
-        nav a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
-        }
-
-        nav a:hover {
-            color: var(--terracotta);
         }
 
         .theme-toggle {
@@ -178,299 +321,259 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--color-text);
             transition: transform 0.3s;
+            margin-left: 2rem;
         }
 
         .theme-toggle:hover {
-            transform: rotate(20deg);
+            transform: rotate(30deg);
+            color: var(--color-accent);
         }
 
-        /* ヒーローセクション */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-text);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 0 2rem;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 100%);
-            position: relative;
-            overflow: hidden;
+            background: radial-gradient(circle at 10% 20%, rgba(139, 157, 131, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 20%);
         }
 
-        .hero::before {
-            content: '🌿';
-            position: absolute;
-            font-size: 20rem;
-            opacity: 0.05;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 1s ease forwards 0.5s;
+            animation: fadeUp 1s ease forwards 0.2s;
         }
 
-        @keyframes fadeInUp {
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.4s;
+        }
+
+        .hero .btn {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.6s;
+        }
+
+        @keyframes fadeUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            color: var(--dark-brown);
-            margin-bottom: 1rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--warm-gray);
-            margin-bottom: 2rem;
-        }
-
-        .cta-button {
-            padding: 1rem 2.5rem;
-            background-color: var(--terracotta);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s;
-            font-weight: 500;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background-color: var(--sage);
-            transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
         .scroll-indicator {
             position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+            bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1s, bounce 2s infinite 2s;
         }
 
         .scroll-indicator::after {
             content: '↓';
-            font-size: 2rem;
-            color: var(--warm-gray);
+            font-size: 1.5rem;
+            color: var(--color-text-muted);
         }
 
-        /* セクション共通 */
-        section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s, transform 0.8s;
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            color: var(--dark-brown);
-            margin-bottom: 3rem;
-            text-align: center;
-            font-weight: 300;
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: var(--terracotta);
-            margin: 1rem auto 0;
-        }
-
-        /* About */
+        /* About Section */
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 5rem;
             align-items: center;
         }
 
         .about-text p {
+            font-size: 1.1rem;
             margin-bottom: 1.5rem;
             line-height: 1.8;
-            color: var(--warm-gray);
+        }
+
+        .profile-image-container {
+            position: relative;
         }
 
         .profile-image {
             width: 100%;
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, var(--sage) 0%, var(--terracotta) 100%);
+            aspect-ratio: 4/5;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
             border-radius: 20px;
+            overflow: hidden;
             display: flex;
-            align-items: center;
             justify-content: center;
-            color: white;
+            align-items: center;
             font-size: 5rem;
-            transition: transform 0.5s;
-            cursor: pointer;
+            transform: rotate(3deg);
+            transition: transform 0.5s ease;
+            box-shadow: var(--shadow-soft);
         }
 
         .profile-image:hover {
-            transform: scale(1.05) rotate(5deg);
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
 
-        /* Skills */
+        /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .skill-card {
-            background-color: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            cursor: pointer;
+            background: var(--color-surface);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition-smooth);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .skill-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background-color: var(--color-accent);
+            transition: height 0.4s ease;
         }
 
         .skill-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .skill-card:hover::before {
+            height: 100%;
         }
 
         .skill-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
             display: inline-block;
-            transition: transform 0.3s;
-        }
-
-        .skill-card:hover .skill-icon {
-            transform: scale(1.2) rotate(10deg);
         }
 
         .skill-card h3 {
-            color: var(--dark-brown);
-            margin-bottom: 1rem;
-            font-weight: 500;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--color-text);
         }
 
-        .skill-card p {
-            color: var(--warm-gray);
-            font-size: 0.95rem;
-        }
-
-        /* Works */
+        /* Works Section */
         .works-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
         }
 
         .work-card {
-            background-color: white;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             cursor: pointer;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--color-surface);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
         }
 
         .work-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-hover);
         }
 
         .work-image {
             width: 100%;
             aspect-ratio: 16/10;
-            background: linear-gradient(135deg, var(--sage) 0%, var(--sand) 100%);
+            background-color: var(--color-surface-dim);
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-size: 3rem;
-            transition: transform 0.3s;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .work-card:hover .work-image {
-            transform: scale(1.1);
         }
 
         .work-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            inset: 0;
+            background: rgba(44, 74, 59, 0.9);
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.4s ease;
         }
 
         .work-card:hover .work-overlay {
             opacity: 1;
         }
 
-        .work-overlay span {
+        .work-overlay-btn {
+            background: transparent;
             color: white;
-            font-size: 1.2rem;
+            border: 1px solid white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
             font-weight: 500;
+            transform: translateY(20px);
+            transition: transform 0.4s ease, background 0.3s;
+        }
+
+        .work-card:hover .work-overlay-btn {
+            transform: translateY(0);
+        }
+
+        .work-overlay-btn:hover {
+            background: white;
+            color: var(--color-primary);
         }
 
         .work-info {
@@ -478,455 +581,402 @@
         }
 
         .work-info h3 {
-            color: var(--dark-brown);
+            font-size: 1.4rem;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            color: var(--color-text);
         }
 
-        .work-info p {
-            color: var(--warm-gray);
-            font-size: 0.95rem;
-        }
-
-        /* モーダル */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 3rem;
-            border-radius: 20px;
-            max-width: 600px;
-            width: 90%;
-            transform: scale(0.8);
-            transition: transform 0.3s;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            float: right;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--warm-gray);
-            transition: color 0.3s;
-        }
-
-        .modal-close:hover {
-            color: var(--terracotta);
-        }
-
-        /* Contact */
+        /* Contact Section */
         .contact-content {
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            background: var(--color-surface);
+            padding: 4rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow-soft);
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 2rem;
         }
 
         .form-group label {
-            margin-bottom: 0.5rem;
-            color: var(--dark-brown);
+            display: block;
+            margin-bottom: 0.8rem;
             font-weight: 500;
+            color: var(--color-text);
         }
 
         .form-group input,
         .form-group textarea {
+            width: 100%;
             padding: 1rem;
-            border: 2px solid var(--sand);
+            background: var(--color-bg);
+            border: 2px solid transparent;
             border-radius: 10px;
             font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s, transform 0.3s;
-            background-color: white;
+            color: var(--color-text);
+            transition: var(--transition-smooth);
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--terracotta);
-            transform: translateY(-2px);
+            border-color: var(--color-primary);
+            background: var(--color-surface);
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .submit-button {
-            padding: 1rem 2rem;
-            background-color: var(--terracotta);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .submit-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background-color: var(--sage);
-            transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-
-        .submit-button:hover::before {
-            width: 3000px;
-            height: 3000px;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        [data-theme="dark"] .form-group input,
+        [data-theme="dark"] .form-group textarea {
+            background: #2a2a2a;
         }
 
         /* Footer */
         footer {
-            background-color: var(--dark-brown);
-            color: var(--cream);
+            padding: 4rem 2rem;
             text-align: center;
-            padding: 2rem;
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background-color: var(--terracotta);
+            background-color: var(--color-primary);
             color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 1000;
         }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
+        [data-theme="dark"] footer {
+            background-color: #111;
         }
 
-        .back-to-top:hover {
-            background-color: var(--sage);
-            transform: translateY(-5px);
-        }
-
-        /* レスポンシブ */
+        /* Mobile */
         @media (max-width: 768px) {
-            nav ul {
-                gap: 1.5rem;
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--color-bg);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .nav-links.active {
+                right: 0;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .menu-toggle {
+                display: block;
+                z-index: 1001;
             }
 
             .about-content {
                 grid-template-columns: 1fr;
             }
 
-            section {
-                padding: 4rem 1.5rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .modal-content {
+            .contact-content {
                 padding: 2rem;
             }
         }
     </style>
 </head>
+
+
 <body>
-    <!-- ローディング画面 -->
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Loader -->
     <div class="loader">
-        <div class="loader-content">
-            <div class="loader-icon">🌿</div>
-            <p>Loading...</p>
-        </div>
+        <div class="loader-spinner"></div>
     </div>
 
-    <!-- プログレスバー -->
-    <div class="progress-bar"></div>
-
-    <!-- ナビゲーション -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">KD</div>
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-            <ul id="nav-menu">
-                <li><a href="#home" onclick="closeMenu()">Home</a></li>
-                <li><a href="#about" onclick="closeMenu()">About</a></li>
-                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
-                <li><a href="#works" onclick="closeMenu()">Works</a></li>
-                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
-            </ul>
-            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            <a href="#" class="logo">KD.</a>
+
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <ul class="nav-links-list"
+                    style="list-style: none; display: flex; flex-direction: inherit; gap: inherit;">
+                    <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                    <li><a href="#about" onclick="closeMenu()">About</a></li>
+                    <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                    <li><a href="#works" onclick="closeMenu()">Works</a></li>
+                    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- ヒーロー -->
+    <!-- Hero -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Keisuke Deguchi</h1>
-            <p>Web Designer & Creative Developer</p>
-            <a href="#contact" class="cta-button">お問い合わせ</a>
-        </div>
+        <h1>Keisuke Deguchi</h1>
+        <p>Crafting digital experiences with nature-inspired aesthetics and premium interaction design.</p>
+        <a href="#works" class="btn">View My Work</a>
         <div class="scroll-indicator"></div>
     </section>
 
     <!-- About -->
     <section id="about">
-        <h2>About</h2>
+        <h2>About Me</h2>
         <div class="about-content">
             <div class="about-text">
-                <p>こんにちは。私は自然の美しさからインスピレーションを得たデザインを得意とするWEBデザイナーです。</p>
-                <p>ユーザーにとって使いやすく、視覚的に心地よいウェブサイトの制作を心がけています。シンプルでありながら印象に残るデザインを通じて、お客様のビジョンを形にします。</p>
-                <p>HTML、CSS、JavaScriptを使用したコーディングから、レスポンシブデザイン、UI/UXデザインまで幅広く対応いたします。</p>
+                <p>Hello. I am a Web Designer & Creative Developer inspired by the organic beauty of nature.</p>
+                <p>My goal is to create digital spaces that feel alive, breathable, and intuitively calm. By blending
+                    modern web technology with timeless aesthetics, I help brands communicate their true essence.</p>
+                <p>I specialize in building responsive, accessible, and performant websites that leave a lasting
+                    impression.</p>
             </div>
-            <div class="profile-image">🌿</div>
+            <div class="profile-image-container">
+                <div class="profile-image">
+                    🌿
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Skills -->
     <section id="skills">
-        <h2>Skills</h2>
+        <h2>Expertise</h2>
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="skill-icon">🎨</div>
                 <h3>UI/UX Design</h3>
-                <p>ユーザー体験を重視した直感的で美しいインターフェースデザイン</p>
+                <p>Creating intuitive, user-centered interfaces with a focus on visual hierarchy and emotional
+                    connection.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">💻</div>
-                <h3>Web Development</h3>
-                <p>HTML/CSS/JavaScriptを使用したレスポンシブなWebサイト構築</p>
+                <h3>Frontend Dev</h3>
+                <p>Building clean, semantic code using HTML5, CSS3, and modern JavaScript frameworks.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">📱</div>
-                <h3>Responsive Design</h3>
-                <p>あらゆるデバイスで最適な表示を実現するレスポンシブ対応</p>
+                <h3>Responsive Layout</h3>
+                <p>Ensuring seamless experiences across all devices, from large desktops to mobile phones.</p>
             </div>
             <div class="skill-card">
                 <div class="skill-icon">✨</div>
-                <h3>Brand Design</h3>
-                <p>ブランドの個性を引き出すビジュアルアイデンティティの構築</p>
+                <h3>Interaction</h3>
+                <p>Adding subtle motion and micro-interactions to delight users and guide attention.</p>
             </div>
         </div>
     </section>
 
     <!-- Works -->
     <section id="works">
-        <h2>Works</h2>
+        <h2>Selected Works</h2>
         <div class="works-grid">
-            <div class="work-card" onclick="openModal(1)">
+            <div class="work-card">
                 <div class="work-image">
                     🌱
                     <div class="work-overlay">
-                        <span>詳細を見る</span>
+                        <button class="work-overlay-btn" onclick="openModal('project1')">View Details</button>
                     </div>
                 </div>
                 <div class="work-info">
-                    <h3>Project Title 1</h3>
-                    <p>hoge</p>
+                    <h3>Organic Cafe</h3>
+                    <p>Brand Identity & Website</p>
                 </div>
             </div>
-            <div class="work-card" onclick="openModal(2)">
+            <div class="work-card">
                 <div class="work-image">
                     🍃
                     <div class="work-overlay">
-                        <span>詳細を見る</span>
+                        <button class="work-overlay-btn" onclick="openModal('project2')">View Details</button>
                     </div>
                 </div>
                 <div class="work-info">
-                    <h3>Project Title 2</h3>
-                    <p>hoge</p>
+                    <h3>Eco Architecture</h3>
+                    <p>Portfolio Site</p>
                 </div>
             </div>
-            <div class="work-card" onclick="openModal(3)">
+            <div class="work-card">
                 <div class="work-image">
                     🌾
                     <div class="work-overlay">
-                        <span>詳細を見る</span>
+                        <button class="work-overlay-btn" onclick="openModal('project3')">View Details</button>
                     </div>
                 </div>
                 <div class="work-info">
-                    <h3>Project Title 3</h3>
-                    <p>hoge</p>
+                    <h3>Natural Skincare</h3>
+                    <p>E-commerce Design</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- モーダル -->
+    <!-- Modal -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h2 style="margin-bottom: 1rem;">Project Details</h2>
-            <p id="modal-text">hoge</p>
+            <h2 id="modal-title" style="margin-bottom: 1rem;">Project Details</h2>
+            <p id="modal-desc" style="color: #666;">Project description goes here...</p>
         </div>
     </div>
 
     <!-- Contact -->
     <section id="contact">
-        <h2>Contact</h2>
+        <h2>Get in Touch</h2>
         <div class="contact-content">
             <form class="contact-form" onsubmit="handleSubmit(event)">
                 <div class="form-group">
-                    <label for="name">お名前</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
                 </div>
                 <div class="form-group">
-                    <label for="email">メールアドレス</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
                 </div>
                 <div class="form-group">
-                    <label for="message">メッセージ</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required
+                        placeholder="Tell me about your project..."></textarea>
                 </div>
-                <button type="submit" class="submit-button">送信する</button>
+                <button type="submit" class="submit-button">Send Message</button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Keisuke Deguchi. All rights reserved.</p>
+        <p>&copy; 2025 Keisuke Deguchi. Crafted with care.</p>
     </footer>
 
-    <!-- トップに戻るボタン -->
+    <!-- Back to top -->
     <div class="back-to-top" onclick="scrollToTop()">↑</div>
 
     <script>
-        // ローディング画面
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Add delay to outline for fluid feel
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
-                document.querySelector('.loader').classList.add('hidden');
-            }, 1000);
+                const loader = document.querySelector('.loader');
+                loader.classList.add('hidden');
+            }, 800);
         });
 
-        // プログレスバー
+        // Theme Toggle
+        let isDark = false;
+        function toggleTheme() {
+            isDark = !isDark;
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        }
+
+        // Navigation Scroll Effect
         window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector('.progress-bar').style.width = scrolled + '%';
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
 
-        // スクロールアニメーション
+        // Mobile Menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active');
+        }
+
+        // Scroll Animation
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    // Stagger children if needed
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('h2').forEach(h => observer.observe(h));
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-        // スムーススクロール
+        // Smooth Scroll (for Safari compatibility & offset)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
                 }
             });
         });
 
-        // ナビゲーション非表示/表示
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            const nav = document.querySelector('nav');
-            
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                nav.classList.add('hidden');
-            } else {
-                nav.classList.remove('hidden');
-            }
-            lastScroll = currentScroll;
-        });
+        // Modal Logic
+        const projectDetails = {
+            'project1': { title: 'Organic Cafe', desc: 'A calming website for a local organic cafe, featuring a warm color palette and smooth transitions.' },
+            'project2': { title: 'Eco Architecture', desc: 'Minimalist portfolio for an eco-friendly architectural firm. Focus on imagery and white space.' },
+            'project3': { title: 'Natural Skincare', desc: 'Clean, trustworthy e-commerce design for a skincare brand. Highlighting natural ingredients.' }
+        };
 
-        // トップに戻るボタン
-        window.addEventListener('scroll', () => {
-            const backToTop = document.querySelector('.back-to-top');
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // モーダル
         function openModal(projectId) {
             const modal = document.getElementById('modal');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            const title = document.getElementById('modal-title');
+            const desc = document.getElementById('modal-desc');
+
+            if (projectDetails[projectId]) {
+                title.textContent = projectDetails[projectId].title;
+                desc.textContent = projectDetails[projectId].desc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function closeModal() {
@@ -935,35 +985,32 @@
             document.body.style.overflow = 'auto';
         }
 
-        // モーダル外クリックで閉じる
         document.getElementById('modal').addEventListener('click', (e) => {
             if (e.target.id === 'modal') {
                 closeModal();
             }
         });
 
-        // テーマ切り替え（簡易版）
-        function toggleTheme() {
-            alert('ダークモード機能は開発中です！');
+        // Back to Top
+        window.addEventListener('scroll', () => {
+            const btn = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ハンバーガーメニュー
-        function toggleMenu() {
-            const menu = document.getElementById('nav-menu');
-            menu.classList.toggle('active');
-        }
-
-        function closeMenu() {
-            const menu = document.getElementById('nav-menu');
-            menu.classList.remove('active');
-        }
-
-        // フォーム送信
         function handleSubmit(e) {
             e.preventDefault();
-            alert('お問い合わせありがとうございます！（実際の送信機能は後ほど設定）');
+            alert('Thank you for your message! (Demo purposes)');
             e.target.reset();
         }
     </script>
 </body>
+
 </html>
