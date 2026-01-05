@@ -432,6 +432,286 @@
             }
         }
 
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-l);
+            padding: 4rem 3rem;
+            margin-top: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            color: white;
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            font-family: var(--font-heading);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: white;
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--color-surface);
+            padding: 2.5rem;
+            border-radius: var(--radius-l);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .testimonial-quote {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--color-text);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--color-surface-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+            color: var(--color-text);
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin: 0;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            opacity: 0.1;
+            color: var(--color-secondary);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--color-surface);
+            padding: 2.5rem;
+            border-radius: var(--radius-l);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            border-top: 4px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-top-color: var(--color-secondary);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .service-card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .service-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--color-text-light);
+        }
+
+        .service-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+            font-weight: bold;
+        }
+
+        /* Process Section */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            padding: 2rem 1.5rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--color-secondary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .process-step p {
+            margin: 0 auto;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .tech-badge {
+            background: var(--color-surface);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            color: var(--color-text);
+            border: 1px solid var(--color-surface-dim);
+            transition: var(--transition-smooth);
+        }
+
+        .tech-badge:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-surface), var(--color-surface-dim));
+            border-radius: var(--radius-l);
+            padding: 5rem 3rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin: 0 auto 2.5rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--color-secondary);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            border: 2px solid var(--color-secondary);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--color-secondary);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-text);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--color-text);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-text);
+            color: var(--color-bg);
+            transform: translateY(-3px);
+        }
+
         /* Skills Section */
         .skills-grid {
             display: grid;
@@ -743,7 +1023,7 @@
                     style="list-style: none; display: flex; flex-direction: inherit; gap: inherit;">
                     <li><a href="#home" onclick="closeMenu()" data-i18n="nav.home">Home</a></li>
                     <li><a href="#about" onclick="closeMenu()" data-i18n="nav.about">About</a></li>
-                    <li><a href="#skills" onclick="closeMenu()" data-i18n="nav.skills">Skills</a></li>
+                    <li><a href="#services" onclick="closeMenu()" data-i18n="nav.services">Services</a></li>
                     <li><a href="#works" onclick="closeMenu()" data-i18n="nav.works">Works</a></li>
                     <li><a href="#contact" onclick="closeMenu()" data-i18n="nav.contact">Contact</a></li>
                 </ul>
@@ -800,35 +1080,118 @@
                 </div>
             </div>
         </div>
+
+        <!-- Stats -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-i18n="stats.projects.number">50+</span>
+                    <span class="stat-label" data-i18n="stats.projects.label">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-i18n="stats.clients.number">30+</span>
+                    <span class="stat-label" data-i18n="stats.clients.label">Happy Clients</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-i18n="stats.experience.number">5+</span>
+                    <span class="stat-label" data-i18n="stats.experience.label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-i18n="stats.satisfaction.number">98%</span>
+                    <span class="stat-label" data-i18n="stats.satisfaction.label">Client Satisfaction</span>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Skills -->
-    <section id="skills">
-        <h2 data-i18n="skills.title">Expertise</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-icon">🎨</div>
-                <h3 data-i18n="skills.uiux.title">UI/UX Design</h3>
-                <p data-i18n="skills.uiux.desc">Creating intuitive, user-centered interfaces with a focus on visual
-                    hierarchy and emotional connection.</p>
+    <!-- Services -->
+    <section id="services">
+        <h2 data-i18n="services.title">Services</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;" data-i18n="services.subtitle">
+            I offer comprehensive web design and development services tailored to your business needs
+        </p>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">🎨</span>
+                <h3 data-i18n="services.webdesign.title">Web Design & Branding</h3>
+                <p data-i18n="services.webdesign.desc">Create a stunning visual identity that resonates with your audience</p>
+                <ul>
+                    <li data-i18n="services.webdesign.li1">Custom UI/UX Design</li>
+                    <li data-i18n="services.webdesign.li2">Brand Identity Development</li>
+                    <li data-i18n="services.webdesign.li3">Design System Creation</li>
+                    <li data-i18n="services.webdesign.li4">Responsive Prototyping</li>
+                </ul>
             </div>
-            <div class="skill-card">
-                <div class="skill-icon">💻</div>
-                <h3 data-i18n="skills.dev.title">Frontend Dev</h3>
-                <p data-i18n="skills.dev.desc">Building clean, semantic code using HTML5, CSS3, and modern JavaScript
-                    frameworks.</p>
+            <div class="service-card">
+                <span class="service-icon">💻</span>
+                <h3 data-i18n="services.webdev.title">Website Development</h3>
+                <p data-i18n="services.webdev.desc">Build fast, secure, and scalable websites with modern technologies</p>
+                <ul>
+                    <li data-i18n="services.webdev.li1">Custom Website Development</li>
+                    <li data-i18n="services.webdev.li2">E-commerce Solutions</li>
+                    <li data-i18n="services.webdev.li3">CMS Integration</li>
+                    <li data-i18n="services.webdev.li4">Performance Optimization</li>
+                </ul>
             </div>
-            <div class="skill-card">
-                <div class="skill-icon">📱</div>
-                <h3 data-i18n="skills.responsive.title">Responsive Layout</h3>
-                <p data-i18n="skills.responsive.desc">Ensuring seamless experiences across all devices, from large
-                    desktops to mobile phones.</p>
+            <div class="service-card">
+                <span class="service-icon">🚀</span>
+                <h3 data-i18n="services.consulting.title">Consulting & Support</h3>
+                <p data-i18n="services.consulting.desc">Ongoing support and strategic guidance for your digital presence</p>
+                <ul>
+                    <li data-i18n="services.consulting.li1">Technical Consultation</li>
+                    <li data-i18n="services.consulting.li2">Website Maintenance</li>
+                    <li data-i18n="services.consulting.li3">SEO Optimization</li>
+                    <li data-i18n="services.consulting.li4">Analytics & Reporting</li>
+                </ul>
             </div>
-            <div class="skill-card">
-                <div class="skill-icon">✨</div>
-                <h3 data-i18n="skills.interaction.title">Interaction</h3>
-                <p data-i18n="skills.interaction.desc">Adding subtle motion and micro-interactions to delight users and
-                    guide attention.</p>
+        </div>
+
+        <!-- Tech Stack -->
+        <div style="margin-top: 5rem; text-align: center;">
+            <h3 style="font-size: 1.8rem; margin-bottom: 2rem;" data-i18n="tech.title">Technologies I Use</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">Vue.js</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind CSS</span>
+                <span class="tech-badge">Figma</span>
+                <span class="tech-badge">Adobe XD</span>
+                <span class="tech-badge">WordPress</span>
+                <span class="tech-badge">Shopify</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process">
+        <h2 data-i18n="process.title">How I Work</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;" data-i18n="process.subtitle">
+            A transparent, collaborative approach to bring your vision to life
+        </p>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3 data-i18n="process.step1.title">Discovery</h3>
+                <p data-i18n="process.step1.desc">We start with understanding your goals, audience, and brand identity through detailed consultation.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3 data-i18n="process.step2.title">Design</h3>
+                <p data-i18n="process.step2.desc">I create wireframes and design mockups, iterating based on your feedback until perfect.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3 data-i18n="process.step3.title">Development</h3>
+                <p data-i18n="process.step3.desc">Transform designs into a fully functional website with clean code and best practices.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3 data-i18n="process.step4.title">Launch & Support</h3>
+                <p data-i18n="process.step4.desc">Deploy your site and provide ongoing support to ensure smooth operation and growth.</p>
             </div>
         </div>
     </section>
@@ -875,6 +1238,67 @@
                     <h3 data-i18n="works.p3.title">Natural Skincare</h3>
                     <p data-i18n="works.p3.cat">E-commerce Design</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <h2 data-i18n="testimonials.title">Client Testimonials</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;" data-i18n="testimonials.subtitle">
+            Don't just take my word for it - here's what clients say about working with me
+        </p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-quote" data-i18n="testimonials.t1.quote">
+                    "Working with Keisuke was an absolute pleasure. He transformed our vision into a beautiful, functional website that exceeded our expectations. The attention to detail and user experience is outstanding."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👨‍💼</div>
+                    <div class="author-info">
+                        <h4 data-i18n="testimonials.t1.name">Michael Chen</h4>
+                        <p data-i18n="testimonials.t1.role">CEO, TechStart Inc.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-quote" data-i18n="testimonials.t2.quote">
+                    "The website redesign brought our brand to life. Not only does it look stunning, but our conversion rate increased by 40% in the first month. Highly recommend!"
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👩‍💻</div>
+                    <div class="author-info">
+                        <h4 data-i18n="testimonials.t2.name">Sarah Johnson</h4>
+                        <p data-i18n="testimonials.t2.role">Marketing Director, GreenLeaf Co.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-quote" data-i18n="testimonials.t3.quote">
+                    "Professional, creative, and incredibly responsive. Keisuke delivered a high-quality e-commerce site on time and within budget. The ongoing support has been invaluable."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👨‍🎨</div>
+                    <div class="author-info">
+                        <h4 data-i18n="testimonials.t3.name">David Park</h4>
+                        <p data-i18n="testimonials.t3.role">Founder, Artisan Goods</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section>
+        <div class="cta-section">
+            <h2 data-i18n="cta.title">Ready to Bring Your Vision to Life?</h2>
+            <p data-i18n="cta.subtitle">Let's create something beautiful together. Get in touch for a free consultation and let's discuss how I can help grow your business.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn-primary" data-i18n="cta.btn1">Start Your Project</a>
+                <a href="mailto:your.email@example.com" class="btn-secondary" data-i18n="cta.btn2">Send an Email</a>
             </div>
         </div>
     </section>
@@ -926,7 +1350,7 @@
                 nav: {
                     home: "Home",
                     about: "About",
-                    skills: "Skills",
+                    services: "Services",
                     works: "Works",
                     contact: "Contact"
                 },
@@ -941,12 +1365,50 @@
                     p2: "My goal is to create digital spaces that feel alive, breathable, and intuitively calm. By blending modern web technology with timeless aesthetics, I help brands communicate their true essence.",
                     p3: "I specialize in building responsive, accessible, and performant websites that leave a lasting impression."
                 },
-                skills: {
-                    title: "Expertise",
-                    uiux: { title: "UI/UX Design", desc: "Creating intuitive, user-centered interfaces with a focus on visual hierarchy and emotional connection." },
-                    dev: { title: "Frontend Dev", desc: "Building clean, semantic code using HTML5, CSS3, and modern JavaScript frameworks." },
-                    responsive: { title: "Responsive Layout", desc: "Ensuring seamless experiences across all devices, from large desktops to mobile phones." },
-                    interaction: { title: "Interaction", desc: "Adding subtle motion and micro-interactions to delight users and guide attention." }
+                stats: {
+                    projects: { number: "50+", label: "Projects Completed" },
+                    clients: { number: "30+", label: "Happy Clients" },
+                    experience: { number: "5+", label: "Years Experience" },
+                    satisfaction: { number: "98%", label: "Client Satisfaction" }
+                },
+                services: {
+                    title: "Services",
+                    subtitle: "I offer comprehensive web design and development services tailored to your business needs",
+                    webdesign: {
+                        title: "Web Design & Branding",
+                        desc: "Create a stunning visual identity that resonates with your audience",
+                        li1: "Custom UI/UX Design",
+                        li2: "Brand Identity Development",
+                        li3: "Design System Creation",
+                        li4: "Responsive Prototyping"
+                    },
+                    webdev: {
+                        title: "Website Development",
+                        desc: "Build fast, secure, and scalable websites with modern technologies",
+                        li1: "Custom Website Development",
+                        li2: "E-commerce Solutions",
+                        li3: "CMS Integration",
+                        li4: "Performance Optimization"
+                    },
+                    consulting: {
+                        title: "Consulting & Support",
+                        desc: "Ongoing support and strategic guidance for your digital presence",
+                        li1: "Technical Consultation",
+                        li2: "Website Maintenance",
+                        li3: "SEO Optimization",
+                        li4: "Analytics & Reporting"
+                    }
+                },
+                tech: {
+                    title: "Technologies I Use"
+                },
+                process: {
+                    title: "How I Work",
+                    subtitle: "A transparent, collaborative approach to bring your vision to life",
+                    step1: { title: "Discovery", desc: "We start with understanding your goals, audience, and brand identity through detailed consultation." },
+                    step2: { title: "Design", desc: "I create wireframes and design mockups, iterating based on your feedback until perfect." },
+                    step3: { title: "Development", desc: "Transform designs into a fully functional website with clean code and best practices." },
+                    step4: { title: "Launch & Support", desc: "Deploy your site and provide ongoing support to ensure smooth operation and growth." }
                 },
                 works: {
                     title: "Selected Works",
@@ -954,6 +1416,31 @@
                     p1: { title: "Organic Cafe", cat: "Brand Identity & Website" },
                     p2: { title: "Eco Architecture", cat: "Portfolio Site" },
                     p3: { title: "Natural Skincare", cat: "E-commerce Design" }
+                },
+                testimonials: {
+                    title: "Client Testimonials",
+                    subtitle: "Don't just take my word for it - here's what clients say about working with me",
+                    t1: {
+                        quote: "Working with Keisuke was an absolute pleasure. He transformed our vision into a beautiful, functional website that exceeded our expectations. The attention to detail and user experience is outstanding.",
+                        name: "Michael Chen",
+                        role: "CEO, TechStart Inc."
+                    },
+                    t2: {
+                        quote: "The website redesign brought our brand to life. Not only does it look stunning, but our conversion rate increased by 40% in the first month. Highly recommend!",
+                        name: "Sarah Johnson",
+                        role: "Marketing Director, GreenLeaf Co."
+                    },
+                    t3: {
+                        quote: "Professional, creative, and incredibly responsive. Keisuke delivered a high-quality e-commerce site on time and within budget. The ongoing support has been invaluable.",
+                        name: "David Park",
+                        role: "Founder, Artisan Goods"
+                    }
+                },
+                cta: {
+                    title: "Ready to Bring Your Vision to Life?",
+                    subtitle: "Let's create something beautiful together. Get in touch for a free consultation and let's discuss how I can help grow your business.",
+                    btn1: "Start Your Project",
+                    btn2: "Send an Email"
                 },
                 contact: {
                     title: "Get in Touch",
@@ -967,7 +1454,7 @@
                 nav: {
                     home: "ホーム",
                     about: "プロフィール",
-                    skills: "スキル",
+                    services: "サービス",
                     works: "制作実績",
                     contact: "お問い合わせ"
                 },
@@ -982,12 +1469,50 @@
                     p2: "私の目指すものは、呼吸をするように心地よく、直感的に安らぎを感じるデジタル空間です。最新のWeb技術とタイムレスな美学を融合させ、ブランドの真の魅力を伝えます。",
                     p3: "レスポンシブでアクセシビリティに配慮し、かつパフォーマンスの高い、印象的なWebサイト制作を専門としています。"
                 },
-                skills: {
-                    title: "専門分野",
-                    uiux: { title: "UI/UX デザイン", desc: "視覚的な階層と感情的なつながりを重視した、直感的でユーザー中心のインターフェース設計。" },
-                    dev: { title: "フロントエンド開発", desc: "HTML5, CSS3, モダンなJavaScriptフレームワークを使用した、美しくセマンティックなコード構築。" },
-                    responsive: { title: "レスポンシブ対応", desc: "デスクトップからモバイルまで、あらゆるデバイスでシームレスな体験を保証します。" },
-                    interaction: { title: "インタラクション", desc: "ユーザーを喜ばせ、視線を誘導する繊細な動きとマイクロインタラクションの実装。" }
+                stats: {
+                    projects: { number: "50+", label: "完了プロジェクト" },
+                    clients: { number: "30+", label: "満足いただいたクライアント" },
+                    experience: { number: "5+", label: "年の経験" },
+                    satisfaction: { number: "98%", label: "顧客満足度" }
+                },
+                services: {
+                    title: "サービス",
+                    subtitle: "お客様のビジネスニーズに合わせた、包括的なWebデザイン・開発サービスを提供します",
+                    webdesign: {
+                        title: "Webデザイン & ブランディング",
+                        desc: "ターゲットに響く、美しいビジュアルアイデンティティを創造",
+                        li1: "カスタムUI/UXデザイン",
+                        li2: "ブランドアイデンティティ構築",
+                        li3: "デザインシステム構築",
+                        li4: "レスポンシブプロトタイピング"
+                    },
+                    webdev: {
+                        title: "Webサイト開発",
+                        desc: "最新技術で、高速・安全・スケーラブルなWebサイトを構築",
+                        li1: "カスタムWebサイト開発",
+                        li2: "ECサイト構築",
+                        li3: "CMS統合",
+                        li4: "パフォーマンス最適化"
+                    },
+                    consulting: {
+                        title: "コンサルティング & サポート",
+                        desc: "デジタルプレゼンスのための継続的サポートと戦略的アドバイス",
+                        li1: "技術コンサルテーション",
+                        li2: "Webサイト保守",
+                        li3: "SEO最適化",
+                        li4: "分析 & レポーティング"
+                    }
+                },
+                tech: {
+                    title: "使用技術"
+                },
+                process: {
+                    title: "制作の流れ",
+                    subtitle: "透明性のある協働的なアプローチで、あなたのビジョンを実現します",
+                    step1: { title: "ヒアリング", desc: "詳細なコンサルテーションを通じて、目標、ターゲット、ブランドアイデンティティを理解します。" },
+                    step2: { title: "デザイン", desc: "ワイヤーフレームとデザインモックアップを作成し、フィードバックに基づいて完璧になるまで改善します。" },
+                    step3: { title: "開発", desc: "クリーンなコードとベストプラクティスで、デザインを完全に機能するWebサイトに変換します。" },
+                    step4: { title: "公開 & サポート", desc: "サイトを公開し、スムーズな運用と成長を確保するための継続的なサポートを提供します。" }
                 },
                 works: {
                     title: "制作実績",
@@ -995,6 +1520,31 @@
                     p1: { title: "Organic Cafe", cat: "ブランドアイデンティティ & Webサイト" },
                     p2: { title: "Eco Architecture", cat: "ポートフォリオサイト" },
                     p3: { title: "Natural Skincare", cat: "ECサイトデザイン" }
+                },
+                testimonials: {
+                    title: "お客様の声",
+                    subtitle: "私の言葉だけではなく、クライアントの声をご覧ください",
+                    t1: {
+                        quote: "出口さんとの仕事は本当に素晴らしい体験でした。私たちのビジョンを、期待を超える美しく機能的なWebサイトに変えてくれました。細部へのこだわりとユーザー体験の質は卓越しています。",
+                        name: "マイケル・チェン",
+                        role: "CEO, TechStart Inc."
+                    },
+                    t2: {
+                        quote: "Webサイトのリニューアルでブランドに命を吹き込むことができました。見た目が素晴らしいだけでなく、最初の月でコンバージョン率が40%向上しました。強くお勧めします!",
+                        name: "サラ・ジョンソン",
+                        role: "マーケティングディレクター, GreenLeaf Co."
+                    },
+                    t3: {
+                        quote: "プロフェッショナルで、クリエイティブで、レスポンスが非常に速い。出口さんは予算内で期日通りに高品質なECサイトを納品してくれました。継続的なサポートも非常に貴重です。",
+                        name: "デビッド・パーク",
+                        role: "創業者, Artisan Goods"
+                    }
+                },
+                cta: {
+                    title: "あなたのビジョンを実現しませんか?",
+                    subtitle: "一緒に素晴らしいものを創りましょう。無料相談でご連絡ください。ビジネスの成長をどのようにサポートできるか話し合いましょう。",
+                    btn1: "プロジェクトを始める",
+                    btn2: "メールを送る"
                 },
                 contact: {
                     title: "お問い合わせ",
