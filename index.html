@@ -247,6 +247,14 @@
             margin: 0;
         }
 
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .mobile-controls {
+            display: none;
+        }
+
         @media (max-width: 1024px) {
             .nav-links ul {
                 gap: 2.5rem;
@@ -367,11 +375,21 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 3rem;
-                margin-bottom: 3rem;
+                margin-bottom: 0;
+            }
+
+            .nav-links li {
+                margin: 0;
             }
 
             .nav-links a {
                 font-size: 1.5rem;
+            }
+
+            .mobile-controls {
+                display: flex;
+                gap: 1rem;
+                margin-top: 3rem;
             }
 
             .logo {
@@ -1147,6 +1165,25 @@
                         <li><a href="#works" onclick="closeMenu()" data-i18n="nav.works">Works</a></li>
                         <li><a href="#contact" onclick="closeMenu()" data-i18n="nav.contact">Contact</a></li>
                     </ul>
+                    <div class="mobile-controls">
+                        <button class="lang-toggle" onclick="toggleLanguage()" aria-label="Toggle Language">
+                            <span id="mobile-lang">EN</span>
+                        </button>
+                        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+                            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1665,6 +1702,10 @@
             // Display the NEXT language (opposite of current)
             const nextLang = currentLang === 'en' ? 'ja' : 'en';
             document.getElementById('current-lang').textContent = nextLang.toUpperCase();
+            const mobileLang = document.getElementById('mobile-lang');
+            if (mobileLang) {
+                mobileLang.textContent = nextLang.toUpperCase();
+            }
         }
 
         function updateContent() {
