@@ -194,24 +194,30 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1.2rem 2rem;
             z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition-smooth);
             background: var(--color-bg);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
             backdrop-filter: blur(10px);
         }
 
         .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem 0;
+        }
+
+        .nav-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding-bottom: 1rem;
+        }
+
+        .nav-bottom {
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid var(--color-surface-dim);
+            padding: 1rem 0;
         }
 
         .logo {
@@ -221,6 +227,12 @@
             text-decoration: none;
             color: var(--color-primary);
             letter-spacing: -0.02em;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
 
         .nav-links {
@@ -237,7 +249,7 @@
 
         @media (max-width: 1024px) {
             .nav-links ul {
-                gap: 2rem;
+                gap: 2.5rem;
             }
         }
 
@@ -283,9 +295,47 @@
             height: 40px;
         }
 
+        .mobile-menu-close {
+            display: none;
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--color-surface);
+            border: 2px solid var(--color-surface-dim);
+            border-radius: 8px;
+            color: var(--color-text);
+            cursor: pointer;
+            padding: 0.5rem;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 1002;
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-menu-close:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .mobile-menu-close.active {
+            display: flex;
+        }
+
         @media (max-width: 900px) {
-            nav {
+            .nav-container {
                 padding: 1rem 1.5rem;
+            }
+
+            .nav-top {
+                padding-bottom: 0;
+            }
+
+            .nav-bottom {
+                display: none;
             }
 
             .menu-toggle {
@@ -306,7 +356,7 @@
                 align-items: center;
                 transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
                 padding: 2rem;
-                z-index: 999;
+                z-index: 1001;
             }
 
             .nav-links.active {
@@ -316,8 +366,12 @@
             .nav-links ul {
                 flex-direction: column;
                 align-items: center;
-                gap: 2.5rem;
-                margin-bottom: 2rem;
+                gap: 3rem;
+                margin-bottom: 3rem;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
             }
 
             .logo {
@@ -326,7 +380,7 @@
         }
 
         @media (max-width: 480px) {
-            nav {
+            .nav-container {
                 padding: 0.8rem 1rem;
             }
 
@@ -383,8 +437,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            background: radial-gradient(circle at top right, var(--color-surface-dim), transparent 60%);
-            padding-top: 80px;
+            padding-top: 120px;
         }
 
         .hero h1 {
@@ -1054,26 +1107,17 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">KD.</a>
-
-            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <ul class="nav-links-list"
-                    style="list-style: none; display: flex; flex-direction: inherit; gap: inherit;">
-                    <li><a href="#home" onclick="closeMenu()" data-i18n="nav.home">Home</a></li>
-                    <li><a href="#about" onclick="closeMenu()" data-i18n="nav.about">About</a></li>
-                    <li><a href="#services" onclick="closeMenu()" data-i18n="nav.services">Services</a></li>
-                    <li><a href="#works" onclick="closeMenu()" data-i18n="nav.works">Works</a></li>
-                    <li><a href="#contact" onclick="closeMenu()" data-i18n="nav.contact">Contact</a></li>
-                </ul>
-                <div style="display: flex; gap: 1rem; align-items: center;">
+            <div class="nav-top">
+                <a href="#" class="logo">KD.</a>
+                <div class="nav-controls">
+                    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
                     <button class="lang-toggle" onclick="toggleLanguage()" aria-label="Toggle Language">
                         <span id="current-lang">EN</span>
                     </button>
@@ -1093,7 +1137,20 @@
                     </button>
                 </div>
             </div>
+            <div class="nav-bottom">
+                <div class="nav-links" id="nav-links">
+                    <ul class="nav-links-list"
+                        style="list-style: none; display: flex; flex-direction: inherit; gap: inherit;">
+                        <li><a href="#home" onclick="closeMenu()" data-i18n="nav.home">Home</a></li>
+                        <li><a href="#about" onclick="closeMenu()" data-i18n="nav.about">About</a></li>
+                        <li><a href="#services" onclick="closeMenu()" data-i18n="nav.services">Services</a></li>
+                        <li><a href="#works" onclick="closeMenu()" data-i18n="nav.works">Works</a></li>
+                        <li><a href="#contact" onclick="closeMenu()" data-i18n="nav.contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+        <button class="mobile-menu-close" onclick="closeMenu()" aria-label="Close Menu">&times;</button>
     </nav>
 
     <!-- Hero -->
@@ -1657,12 +1714,16 @@
         // Mobile Menu
         function toggleMenu() {
             const navLinks = document.getElementById('nav-links');
+            const closeBtn = document.querySelector('.mobile-menu-close');
             navLinks.classList.toggle('active');
+            closeBtn.classList.toggle('active');
         }
 
         function closeMenu() {
             const navLinks = document.getElementById('nav-links');
+            const closeBtn = document.querySelector('.mobile-menu-close');
             navLinks.classList.remove('active');
+            closeBtn.classList.remove('active');
         }
 
         // Scroll Animation
