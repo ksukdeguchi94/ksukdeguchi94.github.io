@@ -230,9 +230,15 @@
 
         .nav-links ul {
             display: flex;
-            gap: 2.5rem;
+            gap: 3.5rem;
             list-style: none;
             margin: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links ul {
+                gap: 2rem;
+            }
         }
 
         .nav-links a {
@@ -277,7 +283,11 @@
             height: 40px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
             .menu-toggle {
                 display: flex;
                 align-items: center;
@@ -306,12 +316,22 @@
             .nav-links ul {
                 flex-direction: column;
                 align-items: center;
-                gap: 2rem;
+                gap: 2.5rem;
                 margin-bottom: 2rem;
             }
 
             .logo {
                 font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
             }
         }
 
@@ -1055,7 +1075,7 @@
                 </ul>
                 <div style="display: flex; gap: 1rem; align-items: center;">
                     <button class="lang-toggle" onclick="toggleLanguage()" aria-label="Toggle Language">
-                        <span id="current-lang">JA</span>
+                        <span id="current-lang">EN</span>
                     </button>
                     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
                         <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -1580,7 +1600,7 @@
             }
         };
 
-        let currentLang = 'en';
+        let currentLang = 'ja';
 
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ja' : 'en';
@@ -1603,6 +1623,11 @@
                 }
             });
         }
+
+        // Initialize with Japanese content on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateContent();
+        });
 
         // Loader
         window.addEventListener('load', () => {
