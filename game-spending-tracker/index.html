@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲーム課金トラッカー</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header .date {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .settings {
+            background: #f7f9fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .settings-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .settings input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .settings input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .settings button {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .settings button:hover {
+            background: #5568d3;
+        }
+
+        .settings small {
+            display: block;
+            color: #666;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .total-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .total-section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .total-section .amount {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .spending-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .spending-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f7f9fc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .spending-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .spending-item .game-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .spending-item .game-time {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .spending-item .amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .status {
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* スクロールバーのスタイル */
+        .spending-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .spending-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spending-list::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spending-list::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 ゲーム課金トラッカー</h1>
+            <div class="date" id="currentDate"></div>
+        </div>
+
+        <div class="settings">
+            <div class="settings-row">
+                <input type="text" id="apiKey" placeholder="Google Sheets API Key">
+                <input type="text" id="spreadsheetId" placeholder="スプレッドシートID">
+                <input type="text" id="sheetName" placeholder="シート名 (例: Sheet1)" value="Sheet1">
+                <button onclick="saveSettings()">保存</button>
+            </div>
+            <small>
+                ※ スプレッドシートのURL: https://docs.google.com/spreadsheets/d/<strong>スプレッドシートID</strong>/edit<br>
+                ※ Google Cloud ConsoleでAPIキーを取得し、Google Sheets APIを有効にしてください
+            </small>
+        </div>
+
+        <div id="statusMessage" class="status" style="display: none;"></div>
+
+        <div class="total-section">
+            <h2>本日の合計課金額</h2>
+            <div class="amount" id="totalAmount">¥0</div>
+        </div>
+
+        <div class="spending-list" id="spendingList">
+            <div class="empty-state">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p>設定を保存してデータを読み込んでください</p>
+            </div>
+        </div>
+
+        <div class="last-updated" id="lastUpdated"></div>
+    </div>
+
+    <script>
+        let updateInterval;
+        const UPDATE_INTERVAL = 10000; // 10秒ごとに更新
+
+        // ページ読み込み時に設定を復元
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCurrentDate();
+            loadSettings();
+        });
+
+        // 現在の日付を表示
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('ja-JP', options);
+        }
+
+        // 設定を保存
+        function saveSettings() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const spreadsheetId = document.getElementById('spreadsheetId').value.trim();
+            const sheetName = document.getElementById('sheetName').value.trim() || 'Sheet1';
+
+            if (!apiKey || !spreadsheetId) {
+                showStatus('APIキーとスプレッドシートIDを入力してください', 'error');
+                return;
+            }
+
+            // LocalStorageに保存
+            localStorage.setItem('apiKey', apiKey);
+            localStorage.setItem('spreadsheetId', spreadsheetId);
+            localStorage.setItem('sheetName', sheetName);
+
+            showStatus('設定を保存しました', 'success');
+
+            // データ取得開始
+            fetchSpendingData();
+            startAutoUpdate();
+        }
+
+        // 設定を読み込み
+        function loadSettings() {
+            const apiKey = localStorage.getItem('apiKey');
+            const spreadsheetId = localStorage.getItem('spreadsheetId');
+            const sheetName = localStorage.getItem('sheetName') || 'Sheet1';
+
+            if (apiKey) document.getElementById('apiKey').value = apiKey;
+            if (spreadsheetId) document.getElementById('spreadsheetId').value = spreadsheetId;
+            if (sheetName) document.getElementById('sheetName').value = sheetName;
+
+            // 設定が保存されていれば自動的にデータ取得開始
+            if (apiKey && spreadsheetId) {
+                fetchSpendingData();
+                startAutoUpdate();
+            }
+        }
+
+        // スプレッドシートからデータを取得
+        async function fetchSpendingData() {
+            const apiKey = localStorage.getItem('apiKey');
+            const spreadsheetId = localStorage.getItem('spreadsheetId');
+            const sheetName = localStorage.getItem('sheetName') || 'Sheet1';
+
+            if (!apiKey || !spreadsheetId) {
+                return;
+            }
+
+            showStatus('データを読み込み中...', 'loading');
+
+            try {
+                // Google Sheets API v4を使用
+                const range = `${sheetName}!A:C`; // A列: ゲーム名, B列: 金額, C列: 時刻
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`APIエラー: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                const rows = data.values || [];
+
+                // 今日の日付
+                const today = new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+                // ヘッダー行をスキップ (rows[0]はヘッダー)
+                const spendingData = [];
+                let total = 0;
+
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (row.length >= 2) {
+                        const gameName = row[0] || '不明なゲーム';
+                        const amount = parseFloat(row[1]) || 0;
+                        const time = row[2] || '';
+
+                        // 時刻から日付を抽出して今日のデータかチェック
+                        // 時刻フォーマット想定: "2026-01-11 14:30" または "14:30"
+                        let isToday = true;
+                        if (time) {
+                            const dateMatch = time.match(/(\d{4})-(\d{2})-(\d{2})/);
+                            if (dateMatch) {
+                                const rowDate = new Date(dateMatch[0]).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                                isToday = (rowDate === today);
+                            }
+                        }
+
+                        if (isToday) {
+                            spendingData.push({ gameName, amount, time });
+                            total += amount;
+                        }
+                    }
+                }
+
+                displaySpendingData(spendingData, total);
+                showStatus(`最終更新: ${new Date().toLocaleTimeString('ja-JP')}`, 'success');
+                updateLastUpdated();
+
+            } catch (error) {
+                console.error('データ取得エラー:', error);
+                showStatus(`エラー: ${error.message}`, 'error');
+            }
+        }
+
+        // データを表示
+        function displaySpendingData(data, total) {
+            const listElement = document.getElementById('spendingList');
+            const totalElement = document.getElementById('totalAmount');
+
+            // 合計金額を表示
+            totalElement.textContent = `¥${total.toLocaleString()}`;
+
+            // リストを表示
+            if (data.length === 0) {
+                listElement.innerHTML = `
+                    <div class="empty-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <p>本日の課金データはまだありません</p>
+                    </div>
+                `;
+            } else {
+                listElement.innerHTML = data.map(item => `
+                    <div class="spending-item">
+                        <div>
+                            <div class="game-name">${escapeHtml(item.gameName)}</div>
+                            <div class="game-time">${escapeHtml(item.time)}</div>
+                        </div>
+                        <div class="amount">¥${item.amount.toLocaleString()}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ステータスメッセージを表示
+        function showStatus(message, type) {
+            const statusElement = document.getElementById('statusMessage');
+            statusElement.textContent = message;
+            statusElement.className = `status ${type}`;
+            statusElement.style.display = 'block';
+
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // 最終更新時刻を表示
+        function updateLastUpdated() {
+            const lastUpdatedElement = document.getElementById('lastUpdated');
+            const now = new Date().toLocaleString('ja-JP');
+            lastUpdatedElement.textContent = `最終更新: ${now}`;
+        }
+
+        // 自動更新を開始
+        function startAutoUpdate() {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+            updateInterval = setInterval(fetchSpendingData, UPDATE_INTERVAL);
+        }
+
+        // HTMLエスケープ
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ページを離れる時にインターバルをクリア
+        window.addEventListener('beforeunload', () => {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+        });
+    </script>
+</body>
+</html>
